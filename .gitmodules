@@ -1,0 +1,4 @@
+[submodule "CM_Externals"]
+	path = CM_Externals
+	url = https://bitbucket360.harmonicinc.com/scm/cm/cm_externals.git
+	branch = develop
