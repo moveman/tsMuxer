@@ -8,10 +8,12 @@
 	<!-- Normally, any non-zero return code denotes failure -->
 	<!-- More information can be found in the link below -->
 	<!-- https://confluence360.harmonicinc.com/x/VwMY -->
+	<!--
 	<exec executable="sh" dir="${ivy.module}" failonerror="true">
 		<arg value="-c" />
-		<arg value="make" />
+		<arg value="./build.sh" />
 	</exec>
+	-->
 
 	<!-- Template for GYP-based modules to do compilation -->
 	<!-- Uncomment this section for GYP-based modules -->
@@ -21,11 +23,26 @@
 	<ant antfile="CDE_CommonBuildCfgs/common-build-user.xml" target="make_linux_x64_dbg"/>
 	-->
 
+	<!-- package everything under linux_x64 -->
+	<exec executable="rm" dir="${ivy.module}" failonerror="true">
+		<arg line="-rf linux_x64" />
+	</exec>
+	<exec executable="mkdir" dir="${ivy.module}" failonerror="true">
+		<arg value="linux_x64" />
+	</exec>
+
+	<exec executable="cp" dir="${ivy.module}" failonerror="true">
+		<arg line="tsMuxer/bin/tsMuxeR linux_x64/" />
+	</exec>
+
 	<!-- Define what files will be tar-gzip in the artifact declared in "ivyArtifactName" using filelist / fileset / dirset -->
 	<!-- More information can be found in the link below -->
 	<!-- https://confluence360.harmonicinc.com/x/VwMY -->
 	<CmPublish ivyArtifactName="tsMuxer_output-linux_x64">
 		<path>
+			<fileset dir="${ivy.module}/linux_x64">
+				<include name="**/*" />
+			</fileset>
 			<!-- Example on how to use filelist can be found in the link below -->
 			<!-- http://ant.apache.org/manual/Types/filelist.html -->
 			<!--
@@ -51,35 +68,6 @@
 			-->
 		</path>
 	</CmPublish>
-
-	<CmPublish ivyArtifactName="tsMuxer_output-linux_x64_dbg">
-		<path>
-			<!-- Example on how to use filelist can be found in the link below -->
-			<!-- http://ant.apache.org/manual/Types/filelist.html -->
-			<!--
-			<filelist dir="${ivy.module}/output">
-				<file name="${ivy.module}.so" />
-			</filelist>
-			-->
-			
-			<!-- Example on how to use fileset can be found in the link below -->
-			<!-- http://ant.apache.org/manual/Types/fileset.html -->
-			<!--
-			<fileset dir="${ivy.module}/output">
-				<include name="*.so" />
-			</fileset>
-			-->
-			
-			<!-- Example on how to use dirset can be found in the link below -->
-			<!-- http://ant.apache.org/manual/Types/dirset.html -->
-			<!--
-			<dirset dir="${ivy.module}/output">
-				<include name="release" />
-			</dirset>
-			-->
-		</path>
-	</CmPublish>
-
 </target>
 
 <!-- Remove this remark for the build target template for C/C++ module to enable code coverage

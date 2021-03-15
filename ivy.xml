@@ -24,7 +24,6 @@
 	<!-- https://confluence360.harmonicinc.com/x/Qosv -->
 	<configurations>
 		<conf name="linux_x64" />
-		<conf name="linux_x64_dbg" />
 		<!-- Uncomment this section for the configurations for C/C++ module to enable code coverage
 		<conf name="linux_x64_bullseye" />
 		-->
@@ -37,7 +36,6 @@
 	<!-- https://confluence360.harmonicinc.com/x/Qosv -->
 	<publications>
 		<artifact name="tsMuxer_output-linux_x64" ext="tgz" type="tgz" conf="linux_x64" />
-		<artifact name="tsMuxer_output-linux_x64_dbg" ext="tgz" type="tgz" conf="linux_x64_dbg" />
 		<!-- Uncomment this section for the configurations for C/C++ module to enable code coverage
 		<artifact name="tsMuxer_output-linux_x64_bullseye" ext="tgz" type="tgz" conf="linux_x64_bullseye" />
 		-->
