@@ -50,6 +50,9 @@ static const int64_t DEFAULT_VBV_BUFFER_LEN = 500;  // default 500 ms vbv buffer
 
 static const int PAT_PID = 0;
 static const int SIT_PID = 0x1f;
+static const int VIDEO_PID = 481; // original 0x1011;
+static const int DV_VIDEO_PID = 481; // original 0x1015;
+static const int AUDIO_PID = 482;
 static const int NULL_PID = 8191;
 
 uint8_t DefaultSitTableOne[] = {
@@ -188,12 +191,12 @@ void TSMuxer::intAddStream(const std::string& streamName, const std::string& cod
             int doubleMux = (m_subMode || m_masterMode) ? 2 : 1;
             if (codecReader->getStreamHDR() == 4)
             {
-                tsStreamIndex = 0x1015 + m_DVvideoTrackCnt * doubleMux;
+                tsStreamIndex = DV_VIDEO_PID + m_DVvideoTrackCnt * doubleMux;
                 m_DVvideoTrackCnt++;
             }
             else
             {
-                tsStreamIndex = 0x1011 + m_videoTrackCnt * doubleMux;
+                tsStreamIndex = VIDEO_PID + m_videoTrackCnt * doubleMux;
                 m_videoTrackCnt++;
                 V3_flags |= NON_DV_TRACK;
             }
@@ -208,6 +211,9 @@ void TSMuxer::intAddStream(const std::string& streamName, const std::string& cod
     }
     else if (codecName[0] == 'A')
     {
+        tsStreamIndex = AUDIO_PID + m_audioTrackCnt;
+        m_audioTrackCnt++;
+        /*
         if (isSecondary)
         {
             tsStreamIndex = 0x1A00 + m_secondaryAudioTrackCnt;
@@ -218,6 +224,7 @@ void TSMuxer::intAddStream(const std::string& streamName, const std::string& cod
             tsStreamIndex = 0x1100 + m_audioTrackCnt;
             m_audioTrackCnt++;
         }
+        */
     }
     else if (codecName == "S_HDMV/PGS")
     {
@@ -1177,7 +1184,10 @@ void TSMuxer::buildPAT()
     tsPacket->setPID(PAT_PID);
     tsPacket->dataExists = 1;
     tsPacket->payloadStart = 1;
+    // Remove SIT Since OTT Don't use it
+    /*
     m_pat.pmtPids[SIT_PID] = 0;          // add NIT. program number = 0
+    */
     m_pat.pmtPids[DEFAULT_PMT_PID] = 1;  // add PMT. program number = 1
     m_pat.transport_stream_id = 1;       // version of transport stream
     uint32_t size = m_pat.serialize(m_patBuffer + TSPacket::TS_HEADER_SIZE, TS_FRAME_SIZE - TSPacket::TS_HEADER_SIZE);

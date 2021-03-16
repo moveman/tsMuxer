@@ -16,7 +16,7 @@ const static int TS_LANG_DESCRIPTOR_TAG = 10;
 const static int TS_COPY_CONTROL_DESCRIPTOR_TAG = 136;
 
 static const int DEFAULT_PCR_PID = 4097;
-static const int DEFAULT_PMT_PID = 256;
+static const int DEFAULT_PMT_PID = 480; //256;
 
 static const uint8_t SEQUENCE_END_CODE = 0xb7;
 static const uint8_t ISO_11172_END_CODE = 0xb9;
