@@ -8,12 +8,10 @@
 	<!-- Normally, any non-zero return code denotes failure -->
 	<!-- More information can be found in the link below -->
 	<!-- https://confluence360.harmonicinc.com/x/VwMY -->
-	<!--
 	<exec executable="sh" dir="${ivy.module}" failonerror="true">
 		<arg value="-c" />
 		<arg value="./build.sh" />
 	</exec>
-	-->
 
 	<!-- Template for GYP-based modules to do compilation -->
 	<!-- Uncomment this section for GYP-based modules -->
