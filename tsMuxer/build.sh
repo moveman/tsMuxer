@@ -1,12 +1,12 @@
 #bash
-yum -y install cmake3
-yum -y install libxml2
-yum -y install ninja-build
-yum -y install zlib-devel
-yum -y install freetype-devel
-yum -y install centos-release-scl
-yum -y install devtoolset-8-gcc devtoolset-8-gcc-c++
-ln -s /bin/cmake3 /bin/cmake
+sudo yum -y install cmake3
+sudo yum -y install libxml2
+sudo yum -y install ninja-build
+sudo yum -y install zlib-devel
+sudo yum -y install freetype-devel
+sudo yum -y install centos-release-scl
+sudo yum -y install devtoolset-8-gcc devtoolset-8-gcc-c++
+sudo ln -s /bin/cmake3 /bin/cmake
 cd tsMuxer/
 scl enable devtoolset-8 ./rebuild_linux.sh
 cd ../
