@@ -855,13 +855,13 @@ int main(int argc, char** argv)
         LTRACE(LT_ERROR, 2, e.m_errStr.c_str());
         return -2;
     }
-    catch (BitStreamException& e)
-    {
-        if (argc == 2)
-            LTRACE2(LT_ERROR, "Error: ");
-        LTRACE(LT_ERROR, 2, "Bitstream exception " << e.what() << EXCEPTION_ERR_MSG);
-        return -3;
-    }
+//    catch (BitStreamException& e)
+//    {
+//        if (argc == 2)
+//            LTRACE2(LT_ERROR, "Error: ");
+//        LTRACE(LT_ERROR, 2, "Bitstream exception " << e.what() << EXCEPTION_ERR_MSG);
+//        return -3;
+//    }
     catch (...)
     {
         if (argc == 2)
