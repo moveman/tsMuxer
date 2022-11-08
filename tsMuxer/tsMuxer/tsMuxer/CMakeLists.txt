@@ -55,8 +55,6 @@ add_executable (tsmuxer
   wave.cpp
 )
 
-set(CMAKE_CXX_FLAGS "-ggdb3 -O0" CACHE STRING "" FORCE)
-
 if(TSMUXER_STATIC_BUILD)
   if(MSVC)
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
