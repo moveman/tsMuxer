@@ -8,7 +8,7 @@
 	<!-- Normally, any non-zero return code denotes failure -->
 	<!-- More information can be found in the link below -->
 	<!-- https://confluence360.harmonicinc.com/x/VwMY -->
-	<exec executable="sh" dir="${ivy.module}" failonerror="true">
+	<exec executable="sh" dir="${ivy.module}/.." failonerror="true">
 		<arg value="-c" />
 		<arg value="./build.sh" />
 	</exec>
@@ -30,7 +30,7 @@
 	</exec>
 
 	<exec executable="cp" dir="${ivy.module}" failonerror="true">
-		<arg line="tsMuxer/bin/tsMuxeR linux_x64/" />
+		<arg line="../bin/tsMuxeR linux_x64/" />
 	</exec>
 
 	<!-- Define what files will be tar-gzip in the artifact declared in "ivyArtifactName" using filelist / fileset / dirset -->
