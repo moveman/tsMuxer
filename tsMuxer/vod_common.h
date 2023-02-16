@@ -62,7 +62,7 @@ const unsigned DEFAULT_FRAME_FREQ = (uint32_t)(PCR_HALF_FREQUENCY / (4.8 * 1024.
 
 // const static int64_t FIXED_PTS_OFFSET = 378000000ll; //377910000ll;
 
-const static int64_t INTERNAL_PTS_FREQ = 27000000;
+const static int64_t INTERNAL_PTS_FREQ = 196 * 27000000ll;
 const static int64_t INT_FREQ_TO_TS_FREQ = INTERNAL_PTS_FREQ / PCR_FREQUENCY;
 
 const static uint32_t GOP_BUFFER_SIZE = 2 * 1024 * 1024;  // 512*1024;
