@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "math.h"
 
 using namespace std;
 
@@ -123,3 +124,16 @@ double timeToFloat(const std::string& chapterStr)
         hour = strToInt32(timeParts[timeParts.size() - 3].c_str());
     return hour * 3600 + min * 60 + sec;
 }
+
+double correctFps(double fps)
+{
+    if (fabs(fps - 23.976) < 1e-4)
+        return 23.97602397602397;
+    else if (fabs(fps - 29.97) < 1e-4)
+        return 29.97002997002997;
+    else if (fabs(fps - 59.94) < 1e-4)
+        return 59.94005994005994;
+    else
+        return fps;
+}
+
