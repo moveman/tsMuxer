@@ -127,13 +127,27 @@ double timeToFloat(const std::string& chapterStr)
 
 double correctFps(double fps)
 {
-    if (fabs(fps - 23.976) < 1e-4)
-        return 23.97602397602397;
-    else if (fabs(fps - 29.97) < 1e-4)
-        return 29.97002997002997;
-    else if (fabs(fps - 59.94) < 1e-4)
-        return 59.94005994005994;
-    else
-        return fps;
+	struct FPSCorrect {
+	    double from;
+	    double to;
+	};
+
+	FPSCorrect fpsCorrectList[] = {
+		{  5.994,  5.99400599400599},
+		{ 11.988, 11.98801198801198},
+		{ 23.976, 23.97602397602397},
+		{ 47.952, 47.95204795204795},
+		{  7.492,  7.49250749250749},
+		{ 14.985, 14.98501498501498},
+		{ 29.97,  29.97002997002997},
+		{ 59.94,  59.94005994005994},
+	};
+
+    for (int i = 0; i < sizeof(fpsCorrectList)/sizeof(FPSCorrect); i++) {
+        if (fabs(fps - fpsCorrectList[i].from) < 1e-4) {
+            return fpsCorrectList[i].to;
+        }
+    }
+    return fps;
 }
 
