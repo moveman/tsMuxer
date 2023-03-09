@@ -987,6 +987,13 @@ bool TSMuxer::muxPacket(AVPacket& avPacket)
     if (tsIndex == 0)
         THROW(ERR_TS_COMMON, "Unknown track number " << avPacket.stream_index);
 
+    auto newPCR = (avPacket.dts - m_minDts) / INT_FREQ_TO_TS_FREQ + m_fixed_pcr_offset;
+    if (m_lastPCR == -1)
+    {
+        writePATPMT(newPCR, true);
+        writePCR(newPCR);
+    }
+
     bool newPES = false;
     if (avPacket.dts != m_streamInfo[tsIndex].m_dts || avPacket.pts != m_streamInfo[tsIndex].m_pts ||
         tsIndex != m_lastTSIndex || avPacket.flags & AVPacket::FORCE_NEW_FRAME)
@@ -996,8 +1003,6 @@ bool TSMuxer::muxPacket(AVPacket& avPacket)
     }
 
     m_lastTSIndex = tsIndex;
-
-    auto newPCR = (avPacket.dts - m_minDts) / INT_FREQ_TO_TS_FREQ + m_fixed_pcr_offset;
 
     if (m_cbrBitrate != -1 && m_lastPCR != -1)
     {
