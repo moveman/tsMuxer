@@ -17,6 +17,7 @@ class MPEGStreamReader : public AbstractStreamReader
         m_tmpBufferLen = 0;
         setFPS(0);
         m_eof = false;
+        m_flush = false;
         m_lastDecodeOffset = LONG_MAX;
         m_tmpBuffer = new uint8_t[TMP_BUFFER_SIZE];
         m_lastDecodedPos = 0;
@@ -67,6 +68,7 @@ class MPEGStreamReader : public AbstractStreamReader
     int64_t m_curDts;
     uint64_t m_processedBytes;
     bool m_eof;
+    bool m_flush;
     double m_fps;
     int64_t m_pcrIncPerFrame;
     int64_t m_pcrIncPerField;
