@@ -44,7 +44,6 @@ class BufferedFileWriter : public TerminatableThread
     {
         if (m_lastErrorCode == 0)
         {
-            m_nothingToExecute = false;
             return m_writeQueue.push(data);
         }
         else
@@ -53,7 +52,7 @@ class BufferedFileWriter : public TerminatableThread
             return false;
         }
     }
-    bool isQueueEmpty() { return m_nothingToExecute; }
+    bool isQueueEmpty() { return m_writeQueue.empty(); }
 
    protected:
     void thread_main() override;

@@ -51,6 +51,15 @@ class SafeQueue
         return val;
     }
 
+    T peek()
+    {
+        std::lock_guard<std::mutex> lk(m_mtx);
+
+        T val = m_queue.front();
+
+        return val;
+    }
+
    private:
     mutable std::mutex m_mtx;
     std::queue<T> m_queue;
@@ -111,6 +120,21 @@ class WaitableSafeQueue : public SafeQueueWithNotification<T>
 
         return val;
     }
+
+    T peek()
+    {
+        std::unique_lock<std::mutex> lk(m_mtx);
+
+        while (SafeQueue<T>::empty())
+        {
+            m_cond.wait(lk);
+        }
+
+        T val = SafeQueue<T>::peek();
+
+        return val;
+    }
+
 
    private:
     std::mutex m_mtx;
